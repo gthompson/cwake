@@ -44,17 +44,18 @@ while (my $line = <FIN>) {
 		my @fields = split(/\s+/,$line);
 		my $modname = $fields[1];
 		my $paramname = "Pvelocity";
-		my $depth = $fields[4];
+		my $depth = $fields[4] - 3.0; # Hypoellipse depth 0.0km is actually -3.0km from sea level (i.e. 3km above sea level)
 		my $paramval = $fields[3];
 		my $grad = "0";
 		my $units = "km/s";
 		my $auth = "glenn";
 		print "modname=$modname paramname=$paramname depth=$depth paramval=$paramval grad=$grad units=$units auth=$auth\n";
 		dbaddv(@db, "modname", $modname, "paramname", $paramname, "depth", $depth, "paramval", $paramval, "grad", $grad, "units", $units, "auth", $auth);
-		my $poisson = $fields[5];
-		if ($poisson != 0) {
-			$paramval = $paramval / $poisson;
+		my $PSratio = $fields[5];
+		if ($PSratio != 0) {
+			$paramval = $paramval / $PSratio;
 			$paramname = "Svelocity";
+			$paramval = sprintf("%.2f", $paramval);
 			print "modname=$modname paramname=$paramname depth=$depth paramval=$paramval grad=$grad units=$units auth=$auth\n";
 			dbaddv(@db, "modname", $modname, "paramname", $paramname, "depth", $depth, "paramval", $paramval, "grad", $grad, "units", $units, "auth", $auth);
 		}
@@ -63,19 +64,19 @@ while (my $line = <FIN>) {
 close(FIN);
 
 dbclose(@db);
-		
-system("dbset $table modname 1 gulf_ak");
-system("dbset $table modname 2 south62.5");
-system("dbset $table modname 3 north62.5");
-system("dbset $table modname 4 rd");
-system("dbset $table modname 6 sp");
-system("dbset $table modname 8 au");
-system("dbset $table modname 10 ak");
-system("dbset $table modname 11 pa_du");
-system("dbset $table modname 12 kn_gs");
-system("dbset $table modname 13 ka");
-system("dbset $table modname 14 il");
-system("dbset $table modname 15 vn");
-system("dbset $table modname 17 ta");
-system("dbset $table modname 18 ws");
+my $dbset = "dbset -l";		
+system("$dbset $table modname 1 gulf_ak");
+system("$dbset $table modname 2 south62.5");
+system("$dbset $table modname 3 north62.5");
+system("$dbset $table modname 4 rd");
+system("$dbset $table modname 6 sp");
+system("$dbset $table modname 8 au");
+system("$dbset $table modname 10 ak");
+system("$dbset $table modname 11 pa_du");
+system("$dbset $table modname 12 kn_gs");
+system("$dbset $table modname 13 ka");
+system("$dbset $table modname 14 il");
+system("$dbset $table modname 15 vn");
+system("$dbset $table modname 17 ta");
+system("$dbset $table modname 18 ws");
  
