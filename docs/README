@@ -1,9 +1,0 @@
-To install this trial AVO earthquake review workspace on your Unix/Linux computer, run the bin/install.pl script.
-Then at a new terminal window type:
-	avo_ws
-You should now have the workspace ready to go.
-
-
-
-
-
