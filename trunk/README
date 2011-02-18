@@ -28,43 +28,33 @@ Installation:
 	cd $HOME/cwake 
 3. Download (checkout) your local copy (a svn "sandbox") of the CWAKE svn repository from Google Code:
 	svn checkout http://cwake.googlecode.com/svn/trunk/ cwake
-You should now see several new directories, including bin (containing executable code), pf (parameter files) and rc (Unix resource files), tables/genloc (a local copy of the AVO genloc database, containing velocity models and regions)
+
 4. Change to the cwake directory:
 	cd cwake
+
+You should now see several new directories (with the 'ls' command), including bin (containing executable code), pf (parameter files) and rc (Unix resource files), tables/genloc (a local copy of the AVO genloc database, containing velocity models and regions).
+
 5. Run the cwake install script - this will add a line to your shell rc file if you are using bash or cshrc.
 	bin/install_cwake.pl
+
 6. If the installer completed successfully, you should now be able to open a new command window and then type:
 	cwake
+
 This should change to the cwake directory, and source the cwake.rc file, adding paths to system variables important to Antelope, telling it for example to use the pf files in the cwake directory, and the AVO genloc database in tables/genloc.
-7. To test if cwake works, run dbloc2 on the demo database provided.
-	dbloc2 -r 6. If the installer completed successfully, you should now be able to open a new command window and then type:
-	cwake
-This should change to the cwake directory, and source the cwake.rc file, adding paths to system variables important to Antelope, telling it for example to use the pf files in the cwake directory, and the AVO genloc database in tables/genloc.
-7. To test if cwake works, run dbloc2 on the demo database provided.
-	dbloc2 -r 6. If the installer completed successfully, you should now be able to open a new command window and then type:
-	cwake
-This should change to the cwake directory, and source the cwake.rc file, adding paths to system variables important to Antelope, telling it for example to use the pf files in the cwake directory, and the AVO genloc database in tables/genloc.
-7. To test if cwake works, run dbloc2 on the demo database provided.
-	dbloc2 -r 6. If the installer completed successfully, you should now be able to open a new command window and then type:
-	cwake
-This should change to the cwake directory, and source the cwake.rc file, adding paths to system variables important to Antelope, telling it for example to use the pf files in the cwake directory, and the AVO genloc database in tables/genloc.
-7. To test if cwake works, run dbloc2 on the demo database provided.
-	dbloc2 -r 6. If the installer completed successfully, you should now be able to open a new command window and then type:
-	cwake
-This should change to the cwake directory, and source the cwake.rc file, adding paths to system variables important to Antelope, telling it for example to use the pf files in the cwake directory, and the AVO genloc database in tables/genloc.
-7. To test if cwake works, run dbloc2 on the demo database provided.
-	dbloc2 -r 6. If the installer completed successfully, you should now be able to open a new command window and then type:
-	cwake
-This should change to the cwake directory, and source the cwake.rc file, adding paths to system variables important to Antelope, telling it for example to use the pf files in the cwake directory, and the AVO genloc database in tables/genloc.
+
 The practical upshot is that when you want your standard Antelope settings, just open a new command window and work as normal. When you want the cwake settings, type "cwake" (or source ~/.bashrc if you're using bash, source .cshrc if you're using csh) and then you have a workspace that mirrors the configuration at AVO.
-7. To test if cwake works, run dbloc2 on the demo database provided.
-	dbloc2 -r demo/demodb
-Try and locate an event and/or compute its magnitude.
+
+*** IGNORE: demo database does not exist yet!!! **** 7. To test if cwake works, run dbloc2 on the demo database provided.
+***	dbloc2 -r demo/demodb
+
+*** Try and locate an event and/or compute its magnitude.
 
 Issues
 ------
 
-Either submit issues to the Google Group connected to the CWAKE Google Code web-hosted project, or email gthompson (at) alaska.edu.
+Either submit issues to the Google Group (*** DOES NOT EXIST YET ***) connected to the CWAKE Google Code web-hosted project, or email gthompson (at) alaska.edu.
+
+
 
 This file last updated: 2011/02/18
 
