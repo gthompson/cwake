@@ -1,0 +1,193 @@
+Define	&Arr{
+    Temporary_db	trial
+    Work_dir	tmp
+    arrival_color	purple
+    arrival_info	arid sta time iphase deltim fm amp per auth
+    azimuth_font	-Adobe-Helvetica-Bold-O-Normal--*-120-*
+    azimuth_info	azimuth delaz
+    bad_residual_color	orange
+    button_row	49
+    dbpick_channel_options	&Arr{
+        All	sc *:[BEHS]H[ENZ]
+        Horizontal	sc *:[BEHS]H[NE]
+        Resize	All	sc *:[BEHS]H[ENZ] cw 1 21
+        Vertical	sc *:[BEHS]HZ
+    }
+    dbpick_options_order	Arrivals Arrivals+Detections Detections Vertical Horizontal All Selected
+    dbpick_revert_to_default	no
+    fixedwidth_font	-Adobe-Courier-Bold-R-Normal--*-120-*
+    horizontal_margin	0
+    horizontal_max	1594
+    horizontal_span	.9
+    ignored_color	gray60
+    max_busy	30
+    max_event_delta	5
+    max_event_time_difference	25
+    maxcol	25
+    maxrow	50
+    ok_residual_color	DodgerBlue
+    origin_color	magenta
+    origin_info	evid lat lon time depth dtype sdobs auth nass ndef ml mb algorithm
+    partial_color	cyan
+    plain_font	-Adobe-Helvetica-Bold-R-Normal--*-120-*
+    site_info	staname {lat . "," . lon} gregion(lat,lon)
+    slowness_info	slow delslo
+    station_color	gray
+    time_font	-Adobe-Courier-Bold-R-Normal--*-120-*
+    used_color	black
+    vertical_margin	0
+    vertical_max	664
+    vertical_span	.8
+}
+Defines	&Arr{
+    ANTELOPE	PRESERVE || /opt/antelope/5.0-64
+}
+Env	&Arr{
+    ANTELOPE	$ANTELOPE
+    DISPLAY	PRESERVE || :0
+    HOME	PRESERVE
+    LOGNAME	PRESERVE
+    PATH	$ANTELOPE/bin:/usr/local/bin:/usr/openwin/bin:/usr/X11R6/bin:/bin:/usr/bin:/usr/sbin
+    PFPATH	PRESERVE
+    PWD	PRESERVE
+    SCHEMA_DEFAULT	rt1.0
+    TERM	PRESERVE || xterm
+    TZ	PRESERVE
+    VELOCITY_MODEL_DATABASE	PRESERVE
+    DATAPATH	PRESERVE
+    CWAKE	/home/glenn/src/cwake
+}
+Limit	&Arr{
+    coredumpsize	unlimited
+    cputime	unlimited
+    datasize	unlimited
+    descriptors	unlimited
+    filesize	unlimited
+    stacksize	8388608
+    vmemoryuse	unlimited
+}
+Processes	&Tbl{
+    buttons 	dbloc_buttons -p $Pf $Input_database
+    delorids	dbloc_delorids $Input_database
+    setprefor	dbloc_setprefor $Input_database
+    assoc		dbloc_assoc $Input_database $Trial_database @reference_db
+    group 		dbloc_group $Input_database $Trial_database
+    dblocsat2 	dblocsat2 $Input_database $Trial_database
+    dblocgrad 	dblocgrad $Input_database $Trial_database
+    dbgenloc 	dbgenloc $Input_database $Trial_database
+    dbgrassoc2 	dbloc_dbgrassoc $Trial_database ttgrid
+    dbpick 		/usr/bin/xterm `set_display -o` -iconic -e smartpick -pf smartpick -nostarttalk -winfile $Define{Work_dir}/dbpick_window -appname dbloc_dbpick -comout $Define{Work_dir}/dbpick_pipe -geom 1600x1178-0+0  $Input_database $Trial_database
+    #dbpick 		/usr/bin/xterm `set_display -o` -iconic -e dbpick -nostarttalk -winfile $Define{Work_dir}/dbpick_window -appname dbloc_dbpick -comout $Define{Work_dir}/dbpick_pipe $Input_database
+    dbpick_msgs	<$Define{Work_dir}/dbpick_pipe
+    tksend		tksend -i -p dbloc_buttons
+}
+Run	&Arr{
+    assoc	1
+    buttons	1
+    dbgenloc	0
+    dblocgrad	0
+    dblocsat2	0
+    dbpick	0
+    dbpick_msgs	1
+    delorids	1
+    group	1
+    setprefor	1
+    tksend	0
+}
+State	&Arr{
+    P_residual_max	10.0
+    S_residual_max	17.0
+    assoc_all	0
+    assoc_best	0
+    assoc_first	0
+    assoc_phases	PS
+    auto_associate	0
+    auto_locate	0
+    auto_save	1
+    current_start_time	0
+    evid	-1
+    first_arrival	0
+    last_arrival	200
+    locate_default	0
+    next_default	0
+    next_start_time	0
+    old_evids	
+    old_orids	
+    old_prefors	
+    stack_pointer	0
+    time_window	40
+    time_window_stack	
+    time_window_stack_size	25
+    unassociated	0
+}
+User	&Arr{
+    Institution	AVO
+    Presidual_max	1
+    Sresidual_max	2
+    arrival_menu_items	&Tbl{
+    }
+    crunch_at_quit	yes
+    dbpick_max_channels	20
+    dbpick_time_window	80
+    dbpick_waveform_lead_time	10
+    depth_list	0 5 10 20 50 100 150 300
+    etype	vt lp hy rf ex rg ts qb
+    location_programs	&Tbl{
+        dbgenloc	tt1dcvl/south62.5 tt1dcvl/north62.5 tt1dcvl/gulf_ak tt1dcvl/sp tt1dcvl/rd tt1dcvl/au tt1dcvl/il tt1dcvl/ka tt1dcvl/vn tt1dcvl/pa_du tt1dcvl/ws tt1dcvl/ak tt1dcvl/ta tt1dcvl/kn_gs tt1dcvl/scak tt1dcvl/gulfak tt1dcvl/northak tt1dcvl/augustine tt1dcvl/pav_dut tt1dcvl/red_ili tt1dcvl/Bezytt1dcvl/BezyB tt1dcvl/uturuncu_1 taup/ iasp91 ttlvz/iasp91 uniform/anza ttregions/avo
+        dblocsat2 	iasp91
+        dbgrassoc2
+    }
+    magnitude_calculators	&Tbl{
+    #    dbml -make_magtables -v
+	bin/rundbevproc
+    }
+    origin_menu_items	&Tbl{
+    }
+    reference_db	&Tbl{
+    }
+    run_magnitudes_automatically	no	
+#    run_magnitudes_automatically	yes	
+    allow_direct_magnitude_calculators	yes
+    save_programs	&Tbl{
+    }
+    starting_depth	0
+    station_menu_items	&Tbl{
+    }
+}
+fonts	&Arr{
+    Arid	-family Lucida -size 12 -weight bold
+    Azimuth	-family Lucida -size 12 -weight bold -slant italic
+    Fixedwidth	-family lucidasans-typewriter -size 12
+    LabelFixed	-family lucidasans-typewriter -size 12 -weight bold
+    Menu	-family Lucida -size 10
+    Orid	-family Lucida -size 12 -weight bold
+    Plain	-family Lucida -size 10
+    Time	-family Lucida -size 10
+}
+origin_info_table	&Arr{
+    MW	netmag
+    conf	origerr
+    mb	netmag
+    ml	netmag
+    ms	netmag
+    mw	netmag
+    sdepth	origerr
+    sdobs	origerr
+    smajax	origerr
+    sminax	origerr
+    stime	origerr
+    strike	origerr
+}
+overlays	&Arr{
+}
+pf_revision_time	1144741629
+phases_to_ignore	&Arr{
+    -	
+    MW	
+    del	
+    ml	
+    ms	
+    mw	
+    amp
+    mag
+}

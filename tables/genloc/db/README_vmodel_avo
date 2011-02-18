@@ -1,0 +1,11 @@
+If the velocity models defined here seem odd, it is because they are designed to replicate those that already existed in hypoellipse as used by AVO. 
+Specifically, it implements the velocity models and cylinders defined in crustral.prm and cyl.dly.
+These cylinders are described in the appendix of any "Catalog of Earthquake Hypocenters at Alaska Volcanoes" - though apparently not accurately.
+For example, there is actually no cylinder for Fourpeaked. But there are cylinders for Shishaldin and Westdahl.
+In Hypoellipse, wherever a velocity model had not been determined for a specific volcano, one from another volcano was substituted, or a regional
+"south of 62.5 degrees" model was used.
+The tables "regions" and "regmodel" exist only to enable use of ttregions, which will look up the correct region to use, and select the appropriate
+velocity model. However, ttregions (in Antelope contrib) is not working at this time. Therefore genloc has to be told which velocity model to use
+- by the user via dbloc2, or by parameter file if using relocate or orbgenloc.
+
+Notes by Glenn Thompson, 2011-02-13
