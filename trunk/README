@@ -32,7 +32,7 @@ You should now see several new directories, including bin (containing executable
 4. Change to the cwake directory:
 	cd cwake
 5. Run the cwake install script - this will add a line to your shell rc file if you are using bash or cshrc.
-	bin/install.pl
+	bin/install_cwake.pl
 6. If the installer completed successfully, you should now be able to open a new command window and then type:
 	cwake
 This should change to the cwake directory, and source the cwake.rc file, adding paths to system variables important to Antelope, telling it for example to use the pf files in the cwake directory, and the AVO genloc database in tables/genloc.
