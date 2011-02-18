@@ -1,12 +1,10 @@
 #!/usr/bin/perl
-print "Thank you for downloading the AVO Earthquake Review Workspace
-The purpose of this workspace is to give all analysts and research
-scientists working with AVO data a common configuration of velocity
-model, regions, and magnitude algorithms to work with.
+print "This workspace provides a common configuration of tool settings,
+velocity models, and magnitude algorithms suitable for working 
+with waveform and catalog data from the Alaska Volcano Observatory.
 
-If you have questions, contact Glenn Thompson (gthompson@alaska.edu)
-Better still, post a message to the corresponding Google Group
-or report issues/bugs through the Google Code project page";
+Post questions to: Glenn Thompson (gthompson "at" alaska.edu); the 
+corresponding Google Group; or the issues page of Google Code project.";
 use Env;
 print "\nMenu:\n";
 @OPTIONS=qw(Install Update Quit);
