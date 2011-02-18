@@ -1,28 +1,8 @@
-To install this trial AVO seismic analyst review environment (ASARE) on your Unix/Linux computer, there are X steps:
+To install this trial AVO earthquake review workspace on your Unix/Linux computer, run the bin/install.pl script.
+Then at a new terminal window type:
+	avo_ws
+You should now have the workspace ready to go.
 
-1. If you're using the bash shell, add the following lines to your ~/.bashrc file:
-
-	# Directory to which the AVO Seismic Analyst Review Environment will be installed
-	export ASARE=$HOME/avo_analyst_review_workspace 
-	# Append ASARE bin directory to system PATH
-	export PATH=$ASARE/bin:$PATH
-	# Append ASARE pf directory to Antelope parameter file path
-	export PFPATH=$PFPATH:$ASARE/pf
-
-   $ASARE is the directory in which you intend to do all your AVO seismic analyst review work. You can choose a different directory name if you wish.
-
-   (If you're using the cshrc shell, then your file is ~/.cshrc and you need to use "setenv" in the line above, in place of "export").
-
-2. After editing the .bashrc file (or .cshrc file) update your shell variables by sourcing it:
-	source ~/.bashrc
-
-3. If the $ASARE directory already exists, delete it:
-	rm -r $ASARE
-
-   It will probably require confirmation for the annoying .svn directories which SVN puts everywhere.
-
-4. Download a read-only copy of the SVN repository with the command:
-	svn checkout http://avo-analyst-review.googlecode.com/svn/trunk/ $ASARE
 
 
 

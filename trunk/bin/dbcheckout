@@ -158,6 +158,7 @@ sub checkout {
   	&runCommand("cp $event_db.lastid $mydb.lastid");
   } else {
 	print "No lastid table for $event_db\n";
+	&runCommand("makelastid $mydb");
   }
 
   # Rewrite descriptor
