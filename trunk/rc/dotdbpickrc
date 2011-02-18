@@ -1,0 +1,65 @@
+dbpick.foreground:              black
+dbpick.background:              white
+dbpick.arrival.foreground	white
+dbpick.arrival.background:      red
+dbpick.selArrival.foreground	blue
+dbpick.selArrival.background	red
+dbpick.definingArrival.foreground	yellow
+dbpick.definingArrival.background	red
+dbpick.associatedArrival.foreground	green
+dbpick.associatedArrival.background	red
+dbpick.magnitudeArrival.foreground	black
+dbpick.magnitudeArrival.background	red
+dbpick.detection.foreground:    blue
+dbpick.traceWindow.twin:        80
+
+*.traceWindow.twin:		80.0
+
+*.filter1.label:		band 0.5-15
+*.filter1.tpad:			5.0
+*.filter1.lcoFreq:		0.5
+*.filter1.lcoOrder:		2
+*.filter1.ucoFreq:		15.0
+*.filter1.ucoOrder:		2
+
+*.filter2.label:                Band 3-20
+*.filter2.tpad:                 1.0
+*.filter2.lcoFreq:              3.0
+*.filter2.lcoOrder:             4
+*.filter2.ucoFreq:              20.0
+*.filter2.ucoOrder:             4
+
+*.filter3.label:                Band 0.8-5
+*.filter3.tpad:                 3.0
+*.filter3.lcoFreq:              0.8
+*.filter3.lcoOrder:             4
+*.filter3.ucoFreq:              5.0
+*.filter3.ucoOrder:             4
+
+*.filter4.label:		band 0.1-25
+*.filter4.tpad:			2.0
+*.filter4.lcoFreq:		.1
+*.filter4.lcoOrder:		4
+*.filter4.ucoFreq:		25.0	
+*.filter4.ucoOrder:		4
+
+*.filter5.label:		band 0.5-25
+*.filter5.tpad:			5.0
+*.filter5.lcoFreq:		0.5
+*.filter5.lcoOrder:		4
+*.filter5.ucoFreq:		25.0
+*.filter5.ucoOrder:		4
+
+
+
+
+*.phase1.name:	P
+*.phase2.name:	Pn
+*.phase3.name:	S
+*.phase4.name:	Sn
+*.phase5.name:	X1
+*.phase6.name:	X2
+*.phase7.name:	N
+*.phase8.name:	Del
+
+

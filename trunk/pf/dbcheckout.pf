@@ -1,0 +1,3 @@
+event_db	/avort/devrun/events/unreviewed/events
+station_db	/iwrun/op/run/dbmaster/master_stations
+waveform_db	/avort/devrun/db/archive
