@@ -20,7 +20,7 @@ EOF
 
 use Env;
 print "\nMenu:\n";
-@OPTIONS=qw(Install Quit);
+@OPTIONS=qw(Install Uninstall Quit);
 $count = 0;
 while ($menuitem = shift @OPTIONS) {
 	print ++$count."  ".$menuitem."\n";
@@ -28,9 +28,6 @@ while ($menuitem = shift @OPTIONS) {
 $answer = <STDIN>;
 &install if ($answer==1);
 
-
-
-	
 sub install {
 	
 	# record the current directory - the CWAKE directory
@@ -58,9 +55,9 @@ sub install {
 	if ($sh) {	
 
 		# Build the avo rc file
-		$avowsrc="$CWAKE/rc/cwake.rc";
-		print "The CWAKE bashrc file is $avowsrc\n";
-		open(FOUT,">$avowsrc");
+		$cwakerc="$CWAKE/rc/cwake.rc";
+		print "The CWAKE bashrc file is $cwakerc\n";
+		open(FOUT,">$cwakerc");
 		print FOUT "$command VELOCITY_MODEL_DATABASE=vmodel_avo\n";
 		print FOUT "$command DATAPATH=\$DATAPATH:$CWAKE\n";
 		print FOUT "$command PFPATH=\$PFPATH:$CWAKE/pf\n";
@@ -69,14 +66,14 @@ sub install {
 
 		# Add it to the .$shrc file
 		$shellrc=$ENV{HOME}."/.".$sh."rc";
-		$alias="alias cwake=\"cd $CWAKE;source $avowsrc\"";
+		$alias="alias cwake=\"source $cwakerc; cp -i $CWAKE/rc/dbpickrc .dbpickrc\"";
 
 		if ( -e $shellrc) {
 			print "$shellrc already exists\n";
 			# Check if line already exists
-			#$result=`grep $CWAKE $shellrc | wc -l`;chomp($result);
+			$result=`grep $CWAKE $shellrc | wc -l`;chomp($result);
 
-			#if ($result==0) {
+			if ($result==0) {
 
 				if (&yn("Would you like an alias 'cwake' to be added to $shellrc file so that you can switch to the workspace whenever you like")) {
 					print "OK. Nothing added to $shellrc. But you may want to use this alias in future:\n   $alias\n";
@@ -87,18 +84,15 @@ sub install {
 					close FAPP;
 				}
 
-			#} else {
+			} else {
 				#print "the alias 'cwake' already exists in $shellrc. Nothing added.\n";
-			#} #endif $result==0
+			} #endif $result==0
 
 		} # endif (-e $shellrc)
 	} else {
 		print "Sorry, there is no installer for your *nix shell $shell\n";
 	} # endif ($sh)
 	
-	# use the .dbpickrc file supplied
-	print "Copying $CWAKE/rc/dbpickrc to $CWAKE/.dbpickrc\n";
-	system("cp $CWAKE/rc/dbpickrc $CWAKE/.dbpickrc");
 
 	# Summary
 	print "\nThe install was successful.\n"; 
@@ -107,6 +101,9 @@ sub install {
 
 } # end sub install
 
+sub Uninstall {
+	print "There is no uninstaller script yet. However you can:\n   1. remove the alias cwake in your .bashrc (or .cshrc) file.\n   2. remove the cwake directory.\n";
+}
 
 sub yn {
 	$question = $_[0];
