@@ -41,13 +41,15 @@ Define	&Arr{
 }
 Defines	&Arr{
     ANTELOPE	PRESERVE || /opt/antelope/5.0-64
+    RUNDBEVPROC	/home/glenn/src/cwake/bin/rundbevproc
 }
 Env	&Arr{
     ANTELOPE	$ANTELOPE
     DISPLAY	PRESERVE || :0
     HOME	PRESERVE
     LOGNAME	PRESERVE
-    PATH	$ANTELOPE/bin:/usr/local/bin:/usr/openwin/bin:/usr/X11R6/bin:/bin:/usr/bin:/usr/sbin
+    #PATH	$ANTELOPE/bin:/usr/local/bin:/usr/openwin/bin:/usr/X11R6/bin:/bin:/usr/bin:/usr/sbin
+    PATH	PRESERVE
     PFPATH	PRESERVE
     PWD	PRESERVE
     SCHEMA_DEFAULT	rt1.0
@@ -55,7 +57,8 @@ Env	&Arr{
     TZ	PRESERVE
     VELOCITY_MODEL_DATABASE	PRESERVE
     DATAPATH	PRESERVE
-    CWAKE	/home/glenn/src/cwake
+    CWAKE	PRESERVE
+    RUNDBEVPROC	$CWAKE/bin/rundbevproc
 }
 Limit	&Arr{
     coredumpsize	unlimited
@@ -139,7 +142,8 @@ User	&Arr{
     }
     magnitude_calculators	&Tbl{
     #    dbml -make_magtables -v
-	bin/rundbevproc
+	#${RUNDBEVPROC} 
+	rundbevproc
     }
     origin_menu_items	&Tbl{
     }
