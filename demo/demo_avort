@@ -1,0 +1,3 @@
+#
+schema css3.0
+dbpath /avort/devrun/dbmaster/{master_stations}:/avort/devrun/db/{archive_2011_02_20}
