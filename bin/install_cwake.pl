@@ -8,7 +8,7 @@ velocity models, and magnitude algorithms suitable for working
 with waveform and catalog data from the Alaska Volcano Observatory.
 
 Post questions to: Glenn Thompson (gthompson "at" alaska.edu); the 
-corresponding Google Group; or the issues page of Google Code project.
+corresponding Google Group listserv (cwake-users@googlegroups.com); or the issues tracker of Google Code project.
 
 It is recommended that you select "y" in answer to all the questions
 that will be asked as you go through this installer. 
@@ -27,6 +27,7 @@ while ($menuitem = shift @OPTIONS) {
 }
 $answer = <STDIN>;
 &install if ($answer==1);
+&uninstall if ($answer==2);
 
 sub install {
 	
@@ -97,12 +98,11 @@ sub install {
 	# Summary
 	print "\nThe install was successful.\n"; 
 	print "\nTo use CWAKE type:\n   cwake\nfrom any new terminal window\n";
-	print "\nIt is recommended that you work from $CWAKE whenever you use CWAKE. Otherwise, you may want to copy $CWAKE/.dbpickrc to the directory you will be working from\n";
 
 } # end sub install
 
-sub Uninstall {
-	print "There is no uninstaller script yet. However you can:\n   1. remove the alias cwake in your .bashrc (or .cshrc) file.\n   2. remove the cwake directory.\n";
+sub uninstall {
+	print "There is no uninstaller script yet. However you can:\n   1. remove the alias \"cwake\" in your .bashrc (or .cshrc) file.\n   2. remove the cwake directory.\n";
 }
 
 sub yn {
