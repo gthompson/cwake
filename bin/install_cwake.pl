@@ -55,7 +55,20 @@ sub install {
 
 	if ($sh) {	
 
-		# Build the avo rc file
+		unless (&yn("Do you already have the AEIC master stations database on your network")) {
+
+			print "Please enter the full path to the directory containing master stations, e.g. /avort/devrun/dbmaster: \n   > ";
+			$DBMASTERPATH = <STDIN>;
+			chomp($DBMASTERPATH);
+			die ("master_stations not found at $DBMASTERPATH\n") unless (-e "$DBMASTERPATH/master_stations");
+		} else {
+			print "Extracting the master stations database in $CWAKE. Please be patient...\n";
+			system("tar -xvf dbmaster.tar ");
+			print "...Master stations database complete\n"; 
+			$DBMASTERPATH = "$CWAKE/dbmaster";
+		}
+
+		# Build the cwake rc file
 		$cwakerc="$CWAKE/rc/cwake.rc";
 		print "The CWAKE bashrc file is $cwakerc\n";
 		open(FOUT,">$cwakerc");
@@ -63,11 +76,13 @@ sub install {
 		print FOUT "$command DATAPATH=\$DATAPATH:$CWAKE\n";
 		print FOUT "$command PFPATH=\$PFPATH:$CWAKE/pf\n";
 		print FOUT "$command PATH=$CWAKE/bin:\$PATH\n";
+		print FOUT "$command CWAKE=$CWAKE\n";
+		print FOUT "$command DBMASTERPATH=$DBMASTERPATH\n";
 		close FOUT;
 
 		# Add it to the .$shrc file
 		$shellrc=$ENV{HOME}."/.".$sh."rc";
-		$alias="alias cwake=\"source $cwakerc; cp -i $CWAKE/rc/dbpickrc .dbpickrc\"";
+		$alias="alias cwake=\"source $cwakerc; ln -s $DBMASTERPATH dbmaster; cp -i $CWAKE/rc/dbpickrc .dbpickrc\"";
 
 		if ( -e $shellrc) {
 			print "$shellrc already exists\n";
@@ -86,7 +101,7 @@ sub install {
 				}
 
 			} else {
-				#print "the alias 'cwake' already exists in $shellrc. Nothing added.\n";
+				print "the alias 'cwake' already exists in $shellrc. Nothing added.\n";
 			} #endif $result==0
 
 		} # endif (-e $shellrc)
