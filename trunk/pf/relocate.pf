@@ -1,172 +1,164 @@
-# from dbgenloc_intro
-arrival_residual_weight_method	huber
-center_depth	10.0
-center_latitude	59.0
-center_longitude	-155.0
-confidence	0.683
-damp_adjust_factor	5.0
-deltax_convergence_size	0.1
-depth_ceiling	-3.0
-depth_floor	20.0
-depth_range	4.0
-ellipse_type	chi_square
-fix_latitude	0
-fix_longitude	0
-fix_origin_time	0
-generalized_inverse	marquardt
-gridsearch_norm	weighted_rms
-initial_location_method	manual
-latitude_range	4.0
-longitude_range	15.0
-max_error_scale	1000.0
-max_relative_damp	1.0
-maximum_azimuth	0.0
-maximum_distance	5.0
-min_error_scale	1.0
-min_relative_damp	0.000005
-min_step_length_scale	0.01
-minimum_azimuth	0.0
-minimum_distance	0.1
-ndepths	3
-nlat	30
-nlon	30
-number_points_azimuth	36
-number_points_r	19
-pf_revision_time	979505772
-recenter	0
-relative_rms_convergence_value	0.01
-singular_value_cutoff	0.0001
-slowness_distance_weighting	0
-slowness_residual_weight_method	none
-slowness_weight_scale_factor	1.0
-step_length_scale_factor	0.5
-time_distance_weighting	0
+# FROM DBGENLOC_DEFAULT
+############ INITIAL HYPOCENTER PARAMETERS ##################
 
-# from original relocate.pf
-# time_distance_weighting	true
-#velocity_model_name	iasp91
-velocity_model_name	south62.5
-clock_error_cutoff	0.1
-fix_depth	false
-initial_depth	0.0
-initial_latitude	60.0
-initial_location_method	rectangle_gridsearch
-initial_longitude	-150.0
+# Initial location method can be manual, rectangular_gridsearch, radial_gridsearch, nearest_station or S-Ptime. Manual uses a specified lat, lon, depth and origin time as an initial hypocenter. It looks like these can be set as "initial_latitude", "initial_longitude", "initial_origin_time" and "initial_depth", but setting those might prevent them being overwritten by relocate or dbloc2.
+initial_location_method manual
+
+# all grid searches
+center_depth    10.0
+center_latitude 59.0
+center_longitude        -155.0
+gridsearch_norm weighted_rms
+ndepths 3 # 5 10 15 ?
+
+# rectangular grid search only
+latitude_range  15.0 # 4 in relocate before
+longitude_range 30.0 # 15 in relocate before
+depth_range     100.0 # not sure how this works, default value
+nlat    31 # -15 -14 -13 ... 0 ... 13 14 15
+nlon    31 # -30 -28 -26 ... 0 ... 26 28 30
+
+# radial grid search - here search 0-2 degrees away at angle 0-359 degrees
+minimum_distance 0.0 # degrees - 0.1 before
+maximum_distance 2.0 # 5.0 before
+minimum_azimuth 0.0
+maximum_azimuth 359.0 # 0 before
+number_points_r 11 # 0.0, 0.2, 0.4 ... 1.8 2.0, 19 before
+number_points_azimuth 60 # 0 6 12 ... 348 354, 36 before
+
+# S-P phase - note that a phase handler S-P must also exist
+
+#bad_clock {
+# list stations here known to have bad clocks
+# S-P time will be used, absolute arrival time will not
+#}
+clock_error_cutoff 0.1 # if timing table exists, any station with time error > 1.0s will use S-P time only, not arrival time
+
+##################### CONTROL PARAMETERS (DEFAULTS EXIST) #####################
+
+# Iteration control parameters
+fix_latitude                                    false
+fix_longitude                                   false
+fix_depth                                       false
+fix_origin_time                                 false
+depth_ceiling                                   -3.0
+depth_floor                                     700.0
+deltax_convergence_size                         0.01 # stop iterating when change is less than 0.01 km
+deltax_convergence_size 0.1
+relative_rms_convergence_value                  0.0003 # stop iterating when rms improvement less than this, 0.01 before
+step_length_scale_factor                        0.5
+min_step_length_scale                           0.01 # 0.01 for manual, 0.1 for automated
+maximum_hypocenter_adjustments                  50
+
+# Inversion parameters
+recenter                                        false
+generalized_inverse                             marquardt # pseudoinverse or marquardt (damped least squares)
+min_relative_damp                               0.000005
+max_relative_damp                               1.0
+damp_adjust_factor                              5.0
+
+# Weighting parameters
+arrival_residual_weight_method                  huber # huber, bisquare, thomson or none
+slowness_residual_weight_method                 huber # same as above, but for slownessvectors, none before
+time_distance_weighting                         false # false for few arrivals 
+slowness_distance_weighting                     false # false for few arrivals
+slowness_weight_scale_factor                    1.0
+min_error_scale                                 1.0
+max_error_scale                                 50.0 # 1000.0 for previous AVO file
+
+
+################## OTHER PARAMETERS NOT MENTIONED IN MAN GENLOC_INTRO BUT SET BEFORE #######
+confidence      0.683
+ellipse_type    chi_square
+singular_value_cutoff   0.0001
+pf_revision_time        979505772
+
+#### OTHER PARAMETERS SET IN DEFAULT RELOCATE.PF ##############
+#velocity_model_name	south62.5
+velocity_model_name	avo
+#initial_depth	1.0
+#initial_latitude	59.0
+#initial_location_method	rectangle_gridsearch
+#initial_longitude	-155.0
 #initial_origin_time	712788670.0
-#latitude_range	1.0
-#longitude_range	1.0
-#maximum_azimuth	360.0
-#maximum_distance	50.0
-maximum_hypocenter_adjustments	50
-#min_error_scale	10.0
-#min_relative_damp	0.000005
-#minimum_distance	2.0
-#ndepths	1
-#nlat	20
-#nlon	20
-number_points_r	48
 pf_revision_time	1295038538
-phases	&Arr{
-    P	&Arr{
-        TTmethod	tttaup
-        TTmodel	iasp91
-        default_slowness_uncertainty	0.01
-        default_time_uncertainty	0.1
-        dt_bound_factor	0.01
-        du_bound_factor	0.035
-        time_distance_weight_function	&Tbl{
-            0.0	1.0
-            1.0	1.0
-            90.0	1.0
-            95.0	0.1
-            130.0	0.3
-            180.0   0.3
+
+# DO PHASE HANDLERS HAVE TO BE DEFINED HERE OR DO THEY COME FROM tables/genloc?
+# SURELY I DO NOT WANT TTTAUP ANYWAY (GLOBAL MODEL?)
+phases &Arr{
+P  &Arr{
+travel_time_calculator general
+TTmodel avo
+TTmethod ttregions
+#
+#  This weight function is necessary because P is a generic first arrival
+#  At the edge of the core shadow Pdiff = P which can cause large errors
+#  with short-period data where PKiKP is the normal detection
+#
+        time_distance_weight_function &Tbl{
+        0.0     1.0
+        2.5     1.0
+        3.0     0.25
+        5.0     0.01
+        92.0    0.01
+        360.0   0.0
         }
-        time_station_corrections	&Tbl{
+        ux_distance_weight_function &Tbl{
+        0.0     1.0
+        180.0   1.0
         }
-        travel_time_calculator	general
-        ux_distance_weight_function	&Tbl{
-            0.0     1.0
-            180.0	1.0
+        uy_distance_weight_function &Tbl{
+        0.0     1.0
+        180.0   1.0
         }
-        ux_station_corrections	&Tbl{
+        default_time_uncertainty 0.1
+        default_slowness_uncertainty 0.01
+        dt_bound_factor 0.01
+        du_bound_factor 0.035
+        time_station_corrections &Tbl{
         }
-        uy_distance_weight_function	&Tbl{
-            0.0     1.0
-            180.0	1.0
+        ux_station_corrections &Tbl{
         }
-        uy_station_corrections	&Tbl{
+        uy_station_corrections &Tbl{
         }
-    }
-    Pg	&Arr{
-        TTmethod	tttaup
-        TTmodel	iasp91
-        default_slowness_uncertainty	0.01
-        default_time_uncertainty	0.01
-        dt_bound_factor	0.01
-        du_bound_factor	0.035
-        time_distance_weight_function	&Tbl{
-            0.0	1.0
-            1.0	1.0
-            5.0	0.1
-            92.0	0.0
-            360.0	0.0
+}
+# Vs = Vp / sqrt(3) = Vp / 1.7321 = 0.5774*Vp
+S  &Arr{
+travel_time_calculator general
+TTmodel avo
+TTmethod ttregions
+        time_distance_weight_function &Tbl{
+        0.0     1.0
+        2.5     1.0
+        3.0     0.25
+        5.0     0.01
+        92.0    0.01
+        360.0   0.0
         }
-        time_station_corrections	&Tbl{
+        ux_distance_weight_function &Tbl{
+        0.0     1.0
+        180.0   1.0
         }
-        travel_time_calculator	general
-        ux_distance_weight_function	&Tbl{
-            0.0     1.0
-            10.0    1.0
-            90.0    0.7
-            92.0    0.0
-            360.0   0.0
+        uy_distance_weight_function &Tbl{
+        0.0     1.0
+        180.0   1.0
         }
-        ux_station_corrections	&Tbl{
+        default_time_uncertainty 0.2
+        default_slowness_uncertainty 0.005
+        dt_bound_factor 0.01
+        du_bound_factor 0.035
+        time_station_corrections &Tbl{
         }
-        uy_distance_weight_function	&Tbl{
-            0.0     1.0
-            10.0     1.0
-            90.0    0.7
-            92.0    0.0
-            360.0   0.0
+        ux_station_corrections &Tbl{
         }
-        uy_station_corrections	&Tbl{
+        uy_station_corrections &Tbl{
         }
-    }
-    S	&Arr{
-        TTmethod	tttaup
-        TTmodel	iasp91
-        default_slowness_uncertainty	0.005
-        default_time_uncertainty	0.2
-        dt_bound_factor	0.01
-        du_bound_factor	0.035
-        time_distance_weight_function	&Tbl{
-            0.0	1.0
-            1.0	1.0
-            92.0	1.0
-            100.0	0.0
-            180.0   0.0
-        }
-        time_station_corrections	&Tbl{
-        }
-        travel_time_calculator	general
-        ux_distance_weight_function	&Tbl{
-            0.0     1.0
-            180.0	1.0
-        }
-        ux_station_corrections	&Tbl{
-        }
-        uy_distance_weight_function	&Tbl{
-            0.0     1.0
-            180.0	1.0
-        }
-        uy_station_corrections	&Tbl{
-        }
-    }
+}
+
+
     S-P	&Arr{
-        TTmethod	tttaup
-        TTmodel	iasp91
+        TTmethod	avo
+        TTmodel	ttregions
         default_slowness_uncertainty	0.01
         default_time_uncertainty	0.1
         dt_bound_factor	0.01
@@ -190,42 +182,6 @@ phases	&Arr{
         uy_distance_weight_function	&Tbl{
             0.0     1.0
             180.0	1.0
-        }
-        uy_station_corrections	&Tbl{
-        }
-    }
-    Sg	&Arr{
-        TTmethod	tttaup
-        TTmodel	iasp91
-        default_slowness_uncertainty	0.005
-        default_time_uncertainty	0.1
-        dt_bound_factor	0.01
-        du_bound_factor	0.035
-        time_distance_weight_function	&Tbl{
-            0.0	1.0
-            1.0	1.0
-            5.0	0.1
-            92.0	0.0
-            360.0	0.0
-        }
-        time_station_corrections	&Tbl{
-        }
-        travel_time_calculator	general
-        ux_distance_weight_function	&Tbl{
-            0.0     1.0
-            10.0     1.0
-            90.0    0.7
-            92.0    0.0
-            360.0   0.0
-        }
-        ux_station_corrections	&Tbl{
-        }
-        uy_distance_weight_function	&Tbl{
-            0.0     1.0
-            10.0     1.0
-            90.0    0.7
-            92.0    0.0
-            360.0   0.0
         }
         uy_station_corrections	&Tbl{
         }

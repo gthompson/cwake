@@ -3,8 +3,10 @@ assoc_S_thresh	20.0
 assoc_expression	$nass>=$nars
 assoc_firstphase	yes
 assoc_ignoreiphase	no
-assoc_method	tttaup
-assoc_model	iasp91
+assoc_method	ttregions
+assoc_model	avo
+#assoc_method	tttaup
+#assoc_model	iasp91
 assoc_phases	basic
 assoc_screen_new	time
 #assoc_screen_old	(time-3600.0)::(time+3600.0)
@@ -95,7 +97,7 @@ mlrichter_params	&Arr{
 
 
         }
-        auth_accept             .*reg.*|.*lo.*|ew.*|AVO.*|UAF.*|USGS.*
+        auth_accept             .*
 #        station_number_minimum  3
         station_number_minimum 1 
 ##        station_percentage_minimum 0.0
