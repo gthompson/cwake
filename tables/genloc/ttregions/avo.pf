@@ -68,4 +68,35 @@ TTmethod ttregions
         uy_station_corrections &Tbl{
         }
 }
+
+S-P &Arr{
+        TTmethod        avo
+        TTmodel ttregions
+        default_slowness_uncertainty    0.01
+        default_time_uncertainty        0.1
+        dt_bound_factor 0.01
+        du_bound_factor 0.035
+        time_distance_weight_function   &Tbl{
+            0.0 1.0
+            1.0 1.0
+            90.0        1.0
+            95.0        0.0
+            180.0   0.0
+        }
+        time_station_corrections        &Tbl{
+        }
+        travel_time_calculator  general
+        ux_distance_weight_function     &Tbl{
+            0.0     1.0
+            180.0       1.0
+        }
+        ux_station_corrections  &Tbl{
+        }
+        uy_distance_weight_function     &Tbl{
+            0.0     1.0
+            180.0       1.0
+        }
+        uy_station_corrections  &Tbl{
+        }
+    }
 }

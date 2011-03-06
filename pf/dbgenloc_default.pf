@@ -4,49 +4,79 @@
 # latter, a dynamic version written by dbloc2.
 # Version 1 here was produced by "pfecho dbgenloc_default" on raven
 # raven was running Antelope 4.11 at the time (2010/12/03).
-arrival_residual_weight_method	huber
-center_depth	75.0
-center_latitude	62.5
-center_longitude	-150.0
-confidence	0.683
-damp_adjust_factor	5.0
-deltax_convergence_size	0.1
-# GTHO 2010/12/03: Changing depth ceiling from 0.0 to -3.0 
-# to reflect hypoellipse settings for AVO
-#depth_ceiling	-5.0
-depth_ceiling	-3.0
-depth_floor	800.0
-depth_range	100.0
-ellipse_type	chi_square
-fix_latitude	0
-fix_longitude	0
-fix_origin_time	0
-generalized_inverse	marquardt
-gridsearch_norm	weighted_rms
+
+############ INITIAL HYPOCENTER PARAMETERS ##################
+
+# Initial location method can be manual, rectangular_gridsearch, radial_gridsearch, nearest_station or S-Ptime. Manual uses a specified lat, lon, depth and origin time as an initial hypocenter. It looks like these can be set as "initial_latitude", "initial_longitude", "initial_origin_time" and "initial_depth", but setting those might prevent them being overwritten by relocate or dbloc2.
 initial_location_method	manual
+
+# all grid searches 
+center_depth	10.0
+center_latitude 59.0
+center_longitude	-155.0
+gridsearch_norm	weighted_rms
+ndepths	3 # 5 10 15 ?
+
+# rectangular grid search only
 latitude_range	15.0
 longitude_range	30.0
-max_error_scale	1000.0
-max_relative_damp	1.0
-maximum_azimuth	0.0
-maximum_distance	5.0
-min_error_scale	1.0
-min_relative_damp	0.000005
-min_step_length_scale	0.01
-minimum_azimuth	0.0
-minimum_distance	0.1
-ndepths	3
-nlat	30
-nlon	30
-number_points_azimuth	36
-number_points_r	19
-pf_revision_time	979505772
-recenter	0
-relative_rms_convergence_value	0.01
+depth_range	100.0 # not sure how this works, default value
+nlat	31 # -15 -14 -13 ... 0 ... 13 14 15
+nlon	31 # -30 -28 -26 ... 0 ... 26 28 30
+
+# radial grid search - here search 0-2 degrees away at angle 0-359 degrees
+minimum_distance 0.0 # degrees - 0.1 before
+maximum_distance 2.0 # 5.0 before
+minimum_azimuth 0.0
+maximum_azimuth 359.0 # 0 before
+number_points_r	11 # 0.0, 0.2, 0.4 ... 1.8 2.0, 19 before
+number_points_azimuth 60 # 0 6 12 ... 348 354, 36 before
+
+# S-P phase - note that a phase handler S-P must also exist
+
+bad_clock {
+# list stations here known to have bad clocks
+# S-P time will be used, absolute arrival time will not
+}
+clock_error_cutoff 1.0 # if timing table exists, any station with time error > 1.0s will use S-P time only, not arrival time
+
+##################### CONTROL PARAMETERS (DEFAULTS EXIST) #####################
+
+# Iteration control parameters
+fix_latitude                                    false
+fix_longitude                                   false
+fix_depth                                       false
+fix_origin_time                                 false
+depth_ceiling                                   -3.0
+depth_floor                                     700.0
+deltax_convergence_size                         0.01 # stop iterating when change is less than 0.01 km
+deltax_convergence_size	0.1
+relative_rms_convergence_value                  0.0003 # stop iterating when rms improvement less than this, 0.01 before
+step_length_scale_factor                        0.5
+min_step_length_scale                           0.01 # 0.01 for manual, 0.1 for automated
+maximum_hypocenter_adjustments                  50
+
+
+# Inversion parameters
+recenter                                        false
+generalized_inverse                             marquardt # pseudoinverse or marquardt (damped least squares)
+min_relative_damp                               0.000005
+max_relative_damp                               1.0
+damp_adjust_factor                              5.0
+
+# Weighting parameters
+arrival_residual_weight_method                  huber # huber, bisquare, thomson or none
+slowness_residual_weight_method                 huber # same as above, but for slowness vectors, none before
+time_distance_weighting                         false # false for few arrivals
+slowness_distance_weighting                     false # false for few arrivals
+slowness_weight_scale_factor                    1.0
+min_error_scale                                 1.0
+max_error_scale                                 50.0 # 1000.0 for previous AVO file
+
+
+################## OTHER PARAMETERS NOT MENTIONED IN MAN GENLOC_INTRO BUT SET BEFORE #######
+confidence	0.683
+ellipse_type	chi_square
 singular_value_cutoff	0.0001
-slowness_distance_weighting	0
-slowness_residual_weight_method	none
-slowness_weight_scale_factor	1.0
-step_length_scale_factor	0.5
-time_distance_weighting	0
+pf_revision_time	979505772
 

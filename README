@@ -86,15 +86,19 @@ The demonstration database demo_avort is a single day (2011/02/20) from the AVO 
 
 Extracted the demonstration database demo_avort as described above. The hypocenters included in this file come from a nested set of regions defined in orbassoc, using a grid search and a single velocity model. We will now relocate them using genloc. The simplest way to do this is in batch mode with relocate:
 
-	relocate demo_avort avort_relocated -pf relocate_avo -useold
+	relocate demo_avort avort_relocated -useold
 
 The -useold directive here tells relocate (actually genloc) to use the original hypocenters as input for the first iteration.
 
-The relocated events do not (yet) have magnitudes. The magnitudes for the original set of hypocenters were computed using orbevproc, which gives the same answers as dbevproc (it is the same code). We will now compute magnitudes for the relocated events:
+The relocated events do not (yet) have magnitudes. The magnitudes for the original set of hypocenters were computed using orbevproc, which gives the same answers as dbevproc (it is the same code). First, copy the descriptor from above:
+
+	cp demo_avort avort_relocated
+
+We will now compute magnitudes for the relocated events:
 
 	dbevproc -p dbevproc_avo avort_relocated avort_relocated
 
-Here we are sending the magnitudes back into the input database. (Note that computing each magnitude with dbevproc takes several tens of seconds – don't think it has crashed just because it is slow).
+Here we are sending the magnitudes back into the input database. This will only work if the wfdisc table exists on your system and the dir/dfile fields point to waveform data files. (Note that computing each magnitude with dbevproc takes several tens of seconds – don't think it has crashed just because it is slow).
 
 Finally, any of these databases can be examined manually with dbloc2, e.g.:
 
