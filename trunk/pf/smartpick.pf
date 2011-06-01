@@ -149,8 +149,8 @@ groups &Arr{
 channels &Arr{
 	All		.*
 	Verticals	.*Z
-	Horizontals	.*[NE]
-	Broadbands	BH.
+	Horizontals	.*[12NE]
+	Broadbands	[BH]H.
 	dbloc2
 }
 
