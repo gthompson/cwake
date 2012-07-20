@@ -1,2 +1,4 @@
 #!/bin/sh
+# USAGE: rundbevproc dbin auth
+# Subsets all origins matching auth, then computes magnitudes, and sends them back to original database
 dbsubset $1.origin "orid==$2" | dbevproc -p dbevproc_avo -v - $1
