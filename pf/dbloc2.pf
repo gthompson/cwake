@@ -136,7 +136,7 @@ User	&Arr{
     depth_list	0 5 10 20 50 100 150 300
     etype	vt lp hy rf ex rg ts qb
     location_programs	&Tbl{
-        dbgenloc	tt1dcvl/south62.5 tt1dcvl/north62.5 tt1dcvl/gulf_ak tt1dcvl/sp tt1dcvl/rd tt1dcvl/au tt1dcvl/il tt1dcvl/ka tt1dcvl/vn tt1dcvl/pa_du tt1dcvl/ws tt1dcvl/ak tt1dcvl/ta tt1dcvl/kn_gs tt1dcvl/scak tt1dcvl/gulfak tt1dcvl/northak tt1dcvl/augustine tt1dcvl/pav_dut tt1dcvl/red_ili tt1dcvl/Bezytt1dcvl/BezyB tt1dcvl/uturuncu_1 taup/ iasp91 ttlvz/iasp91 uniform/anza ttregions/avo
+        dbgenloc	tt1dcvl/south62.5 tt1dcvl/north62.5 tt1dcvl/gulf_ak tt1dcvl/sp tt1dcvl/rd tt1dcvl/au tt1dcvl/il tt1dcvl/ka tt1dcvl/vn tt1dcvl/pa_du tt1dcvl/ws tt1dcvl/ak tt1dcvl/ta tt1dcvl/kn_gs tt1dcvl/scak tt1dcvl/gulfak tt1dcvl/northak tt1dcvl/augustine tt1dcvl/pav_dut tt1dcvl/red_ili tt1dcvl/Bezytt1dcvl/BezyB tt1dcvl/utu01 tt1dcvl/utu02 tt1dcvl/utu03 taup/ iasp91 ttlvz/iasp91 uniform/anza ttregions/avo
         dblocsat2 	iasp91
         dbgrassoc2
     }
