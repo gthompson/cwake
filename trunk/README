@@ -1,118 +1,163 @@
-﻿1. What is CWAKE?
-The Common Workspace for AlasKa Earthquakes (CWAKE) is an earthquake review “workspace” customized to the Alaska Volcano Observatory (AVO).  It includes custom parameter files and velocity models to allow a Research Seismologist or Seismic Analyst to process earthquakes recorded in Alaska using the same configuration, regardless of which university, observatory or laboratory they work at. 
+ 1. What is CWAKE?
+The Common Workspace for AlasKa Earthquakes (CWAKE) is an earthquake review “workspace” customized to the Alaska Volcano Observatory (AVO).  
+It includes custom parameter files and velocity models to allow a Research Seismologist or Seismic Analyst to process earthquakes recorded 
+in Alaska using the same configuration, regardless of which university, observatory or laboratory they work at. 
+
+Although originally developed for AVO, CWAKE also provides a convenient way to distribute other velocity models. The velocity models used for
+the Uturuncu project have been added, although a region has not been set, which means the Uturuncu models will not be used for automated locations.
+It would be trivial to add all AE(I)C velocity models and regions too, as well as those for other datasets from PASSCAL campaigns (e.g. PIRE).
+
 2. Main features
 
-The CWAKE repository is hosted by Google Code, and can be downloaded (checked-out) using the Subversion (svn) revision-control system. Installation instructions are included in the README file, which is part of the download. Installation consists of running a short script and takes as little as 5 minutes.
+The CWAKE repository is hosted by Google Code, and can be downloaded (checked-out) using the Subversion (svn) revision-control system. 
+Installation instructions are included in the README file, which is part of the download. Installation consists of running a short script 
+and takes as little as 5 minutes.
 
-Once CWAKE is installed, it is simple to switch between a user’s normal configuration (which might be used to process earthquakes from Utah, for example) to the CWAKE configuration (for processing Alaska earthquakes). Switching back is a simple as firing up a new terminal window.
+Once CWAKE is installed, it is simple to switch between a user’s normal configuration (which might be used to process earthquakes from Utah, 
+for example) to the CWAKE configuration (for processing Alaska earthquakes). Switching back is a simple as firing up a new terminal window.
 
-The velocity models (and regions) configured in CWAKE are identical to those configured in Hypoellipse as used by AVO since 1989. As in Hypoellipse, the depth ceiling for earthquakes is set as -3 km (i.e. 3 km above sea level). The two main tools for making use of these velocity models are dbloc2 and relocate. 
+The velocity models (and regions) configured in CWAKE are identical to those configured in Hypoellipse as used by AVO since 1989. As in 
+Hypoellipse, the depth ceiling for earthquakes is set as -3 km (i.e. 3 km above sea level). The two main tools for making use of these 
+velocity models are dbloc2 and relocate. 
 
-Richter magnitude (Ml) can be computed using dbevproc (in batch mode) or via dbloc2 (one event at a time). Currently there is no user control over which station magnitudes are used in the network magnitude, although some waveforms are automatically flagged as bad and omitted.
+Richter magnitude (Ml) can be computed using dbevproc (in batch mode) or via dbloc2 (one event at a time). Currently there is no user control 
+over which station magnitudes are used in the network magnitude, although some waveforms are automatically flagged as bad and omitted.
 
-With the smartpick configuration included, users are able to subset waveforms by volcano subnetwork and sort traces by distance from a chosen station. A black-on-white color scheme is used in dbpick for consistency with XPick. This is different to the default yellow-on-blue and helps the user remember when CWAKE is being used, and when it is not.
+With the smartpick configuration included, users are able to subset waveforms by volcano subnetwork and sort traces by distance from a chosen 
+station. A black-on-white color scheme is used in dbpick for consistency with XPick. This is different to the default yellow-on-blue and helps 
+the user remember when CWAKE is being used, and when it is not.
 
-A Google Groups list (cwake-users@googlegroups.com) exists for discussing CWAKE. This group is linked to the Google Code repository. The Google Code repository also contains an Issue Tracker, a tool to enable developers to enter, prioritize and respond to issues raised on the Google Groups list.
+A Google Groups list (cwake-users@googlegroups.com) exists for discussing CWAKE. This group is linked to the Google Code repository. The Google 
+Code repository also contains an Issue Tracker, a tool to enable developers to enter, prioritize and respond to issues raised on the Google 
+Groups list.
+
 3. Requirements
+
 In brief:
-Antelope version 5.0-64.
-Subversion (svn) is also required to download CWAKE from the Google Code Project Hosting repository.
-An up-to-date Antelope contrib (recommended, but not required).
+- Antelope version 5.0-64 (or later).
+- Subversion (svn) is also required to download CWAKE from the Google Code Project Hosting repository.
+- Antelope contrib (recommended, but not required).
 
-If you do not have Antelope on your computer, you might be able to get it from IRIS if you are at a university or other educational program in North America. If you only have an earlier version of Antelope, you can still use CWAKE, but there may be some things that don't work.
+If you do not have Antelope on your computer, you might be able to get it from IRIS if you are at a university or other educational program in 
+North America. If you only have an earlier version of Antelope, you can still use CWAKE, but there may be some things that don't work.
 
 
-You will need to have Subversion installed on your computer. Simply type "svn" at the command line to see if it is installed. If it isn't, talk to your system administrator.
+You will need to have Subversion installed on your computer. Simply type "svn" at the command line to see if it is installed. If it isn't, 
+talk to your system administrator.
 
-It is helpful to have an up-to-date copy of antelope contrib. The best way to keep contrib up-to-date is the use the instructions at: https://github.com/antelopeusersgroup/antelope_contrib/wiki/Cloning-the-git-repository-of-Antelope-contributed-code. Ask your system administrator to do this. (S)he will first need to install git. If git is not an option, your administrator can download the latest tarball following the instructions at: https://github.com/antelopeusersgroup/antelope_contrib/wiki/Downloading-the-Antelope-contributed-code
+It is helpful to have an up-to-date copy of antelope contrib. The best way to keep contrib up-to-date is the use the instructions at: 
+https://github.com/antelopeusersgroup/antelope_contrib/wiki/Cloning-the-git-repository-of-Antelope-contributed-code. 
+Ask your system administrator to do this. (S)he will first need to install git. If git is not an option, your administrator can download 
+the latest tarball following the instructions at: https://github.com/antelopeusersgroup/antelope_contrib/wiki/Downloading-the-Antelope-contributed-code
+
 4. Installation
-1. Decide where you want to install CWAKE. Here we assume you will install it at $HOME/work/cwake. DON'T CREATE THIS DIRECTORY YET! We will do that when we use svn checkout below.
+(i)   Decide where you want to install CWAKE. Here we assume you will install it at $HOME/work/cwake. DON'T CREATE THIS DIRECTORY YET! We will do that 
+      when we use svn checkout below.
 
-2. Change to parent directory where you plan to install CWAKE. In the example above this is $HOME/work.
+(ii)  Change to parent directory where you plan to install CWAKE. In the example above this is $HOME/work.
 
         	cd $HOME/work
 
-3. Download (checkout) your local copy (a svn "sandbox") of the CWAKE svn repository from Google Code:
+(iii) Download (checkout) your local copy (a svn "sandbox") of the CWAKE svn repository from Google Code:
 
-	svn checkout http://cwake.googlecode.com/svn/trunk/ cwake
+          svn checkout http://cwake.googlecode.com/svn/trunk/ cwake
 
-4. Change to the cwake directory:
+(iv)  Change to the cwake directory:
 
-       cd cwake
+          cd cwake
 
-5. You should now see several new directories:
-	ls -l
+(v)   You should now see several new directories:
+	        ls -l
 
-drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:35 bin
+      drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:35 bin
+      -rw-r--r-- 1 glenn glenn 21350400 2011-02-28 08:35 dbmaster.tar
+      drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:35 demo
+      drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:37 docs
+      drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:35 pf
+      drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:35 rc
+      -rw-r--r-- 1 glenn glenn     3603 2011-02-28 08:35 README
+      drwxr-xr-x 4 glenn glenn     4096 2011-02-28 08:35 tables
 
--rw-r--r-- 1 glenn glenn 21350400 2011-02-28 08:35 dbmaster.tar
+      The bin directory contains the install script. The pf directory contains parameter files specific to AVO. Under tables is an AVO specific 
+      configuration for genloc, including velocity models and regions. The demo directory contains tar archives of sample databases. The master 
+      stations database used for Alaska by AEIC and AVO is in the tar archive dbmaster.tar. To compute hypocenters, Antelope needs to know about
+      station coordinates. To compute magnitudes, Antelope also needs calibration information for each channel. These metadata are stored in this
+      master stations database. 
 
-drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:35 demo
-
-drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:37 docs
-
-drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:35 pf
-
-drwxr-xr-x 3 glenn glenn     4096 2011-02-28 08:35 rc
-
--rw-r--r-- 1 glenn glenn     3603 2011-02-28 08:35 README
-
-drwxr-xr-x 4 glenn glenn     4096 2011-02-28 08:35 tables
-
-The bin directory contains the install script. The pf directory contains parameter files specific to AVO. Under tables is an AVO specific configuration for genloc, including velocity models and regions. The demo directory contains tar archives of sample databases. The master stations database used for Alaska by AEIC and AVO is in the tar archive dbmaster.tar. To compute hypocenters, Antelope needs to know about station coordinates. To compute magnitudes, Antelope also needs calibration information for each channel. These metadata are stored in this master stations database. 
-
-6. Run the CWAKE install script. This will add a 'cwake' alias at the end of your .bashrc file if you are using bash, or your .cshrc file if you are using csh.
+(vi)  Run the CWAKE install script. This will add a 'cwake' alias at the end of your .bashrc file if you are using bash, or your .cshrc file 
+      if you are using csh.
  
         bin/install_cwake.pl
 
-You will be asked whether you have the AEIC master stations database available on your network. If you do, you will be asked to supply the path to the directory it is in. If you do not have it, the installer will extract it to $CWAKE/dbmaster. 
+      You will be asked whether you have the AEIC master stations database available on your network. If you do, you will be asked to supply the 
+      path to the directory it is in. If you do not have it, the installer will extract it to $CWAKE/dbmaster. 
 
-7. If the installer completed successfully, there will now be a file at rc/cwake.rc, which is sourced by this alias to create environment variables specific to CWAKE. To begin using CWAKE all you need to do is open a new terminal window, and type:
+(vii) If the installer completed successfully, there will now be a file at rc/cwake.rc, which is sourced by this alias to create environment 
+      variables specific to CWAKE. To begin using CWAKE all you need to do is open a new terminal window, and type:
+      
         cwake
 
-It is recommended that you do not work directly from the directory where you installed CWAKE as this will clutter your CWAKE installation directory with unrelated files. Instead, simply invoke the CWAKE workspace by typing “cwake” in any terminal window. AVO-specific velocity models and regions, in addition to AVO-specific parameter files, for relocate, dbevproc, dbloc2, smartpick and dbpick will then be used in place of the ones you normally use (e.g. the defaults distributed with your version of Antelope).
+      It is recommended that you do not work directly from the directory where you installed CWAKE as this will clutter your CWAKE installation 
+      directory with unrelated files. Instead, simply invoke the   CWAKE workspace by typing “cwake” in any terminal window. AVO-specific velocity
+      models and regions, in addition to AVO-specific parameter files, for relocate, dbevproc, dbloc2, smartpick and dbpick will then be used in 
+      place of the ones you normally use (e.g. the defaults distributed with your version of Antelope).
+      
 5. Demonstration databases
 
-A demonstration database is provided as tar archive files and included in the demo directory of the download. This can be copied to any directory of your choice and extracted, for example:
+A demonstration database is provided as tar archive files and included in the demo directory of the download. This can be copied to any directory 
+of your choice and extracted, for example:
 
-cd $CWAKE
-cp demo/demo_avort.tar ~/work
-cd work
-tar -xvf demo_avort.tar
+      cd $CWAKE
+      cp demo/demo_avort.tar ~/work
+      cd work
+      tar -xvf demo_avort.tar
 
-The demonstration database demo_avort is a single day (2011/02/20) from the AVO real-time system database. The events were detected, and prelimary hypocenters and magnitudes assigned using the Antelope programs orbdetect, orbassoc and orbevproc. The first event was located on the Cook Inlet regional grid. For this particular event, P pick arrivals are hidden behind S pick arrivals, so the incorrect S picks must be removed manually.
+The demonstration database demo_avort is a single day (2011/02/20) from the AVO real-time system database. The events were detected, and prelimary
+hypocenters and magnitudes assigned using the Antelope programs orbdetect, orbassoc and orbevproc. The first event was located on the Cook Inlet 
+regional grid. For this particular event, P pick arrivals are hidden behind S pick arrivals, so the incorrect S picks must be removed manually.
 
 6. Testing your installation of cwake 
 
-Extracted the demonstration database demo_avort as described above. The hypocenters included in this file come from a nested set of regions defined in orbassoc, using a grid search and a single velocity model. We will now relocate them using genloc. The simplest way to do this is in batch mode with relocate:
+Extracted the demonstration database demo_avort as described above. The hypocenters included in this file come from a nested set of regions defined
+in orbassoc, using a grid search and a single velocity model. We will now relocate them using genloc. The simplest way to do this is in batch mode
+with relocate:
 
-	relocate demo_avort avort_relocated -useold
+	    relocate demo_avort avort_relocated -useold
 
 The -useold directive here tells relocate (actually genloc) to use the original hypocenters as input for the first iteration.
 
-The relocated events do not (yet) have magnitudes. The magnitudes for the original set of hypocenters were computed using orbevproc, which gives the same answers as dbevproc (it is the same code). First, copy the descriptor from above:
+The relocated events do not (yet) have magnitudes. The magnitudes for the original set of hypocenters were computed using orbevproc, which gives
+the same answers as dbevproc (it is the same code). First, copy the descriptor from above:
 
-	cp demo_avort avort_relocated
+	    cp demo_avort avort_relocated
 
 We will now compute magnitudes for the relocated events:
 
-	dbevproc -p dbevproc_avo avort_relocated avort_relocated
+	    dbevproc -p dbevproc_avo avort_relocated avort_relocated
 
-Here we are sending the magnitudes back into the input database. This will only work if the wfdisc table exists on your system and the dir/dfile fields point to waveform data files. (Note that computing each magnitude with dbevproc takes several tens of seconds – don't think it has crashed just because it is slow).
+Here we are sending the magnitudes back into the input database. This will only work if the wfdisc table exists on your system and the dir/dfile
+fields point to waveform data files. (Note that computing each magnitude with dbevproc takes several tens of seconds – don't think it has crashed
+just because it is slow).
 
 Finally, any of these databases can be examined manually with dbloc2, e.g.:
 
-	dbloc2 -p dbloc2_avo -r avort_relocated
+	    dbloc2 -p dbloc2_avo -r avort_relocated
 
-This way, arrivals assigned incorrectly by orbassoc can be fixed manually, and then the event relocated, and a magnitude determined. It is not possible to manually select which station magnitudes to include in a network magnitude, though such functionality is planned in a future version of CWAKE.
+This way, arrivals assigned incorrectly by orbassoc can be fixed manually, and then the event relocated, and a magnitude determined. It is not 
+possible to manually select which station magnitudes to include in a network magnitude, though such functionality is planned in a future version
+of CWAKE.
 
 7. Validation (THIS STEP HAS NOT BEEN DONE YET DUE TO PROBLEMS WITH STATION ELEVATIONS BENEATH MODEL CEILING)
-Hypocenters and Richter magnitudes in the AVO catalog have been determined (since 1989) by an AVO analyst using Hypoellipse. To test CWAKE, six datasets containing only well-constrained hypocenters with Richter magnitudes of at least 0.5  were extracted from the AVO “catalog” for Spurr (62 events), Redoubt (39), Augustine (22), Katmai-Trident (181), Martin-Mageik (457) and Akutan (15). These can be found in the demo/validation/ directory.
+Hypocenters and Richter magnitudes in the AVO catalog have been determined (since 1989) by an AVO analyst using Hypoellipse. To test CWAKE, six 
+datasets containing only well-constrained hypocenters with Richter magnitudes of at least 0.5  were extracted from the AVO “catalog” for Spurr 
+(62 events), Redoubt (39), Augustine (22), Katmai-Trident (181), Martin-Mageik (457) and Akutan (15). These can be found in the demo/validation/ 
+directory.
+
 7.1 Hypocenters
 
 All events in these databases will be relocated using relocate, for example:
 
-relocate demo/catalog/Akutan demo/relocate/Akutan -pf relocate_ak -useold
+      relocate demo/catalog/Akutan demo/relocate/Akutan -pf relocate_ak -useold
 
 Systematic differences between the catalog and relocated hypocenters will be shown.
 
@@ -121,4 +166,4 @@ Systematic differences between the catalog and relocated hypocenters will be sho
 Richter magnitudes will also be computed for the catalog hypocenters with dbevproc and compared with the original catalog magnitudes.
 
 
-NOTE: Project dpocuments moved to /data/projects/cwake_documents on 2012/07/19 (1-2 years after end of project)
+NOTE: Project documents moved to /data/projects/cwake_documents on 2012/07/19 (1-2 years after end of project)
