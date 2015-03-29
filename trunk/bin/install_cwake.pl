@@ -74,7 +74,8 @@ sub install {
 		open(FOUT,">$cwakerc");
 		print FOUT "$command VELOCITY_MODEL_DATABASE=vmodel_avo\n";
 		print FOUT "$command DATAPATH=\$DATAPATH:$CWAKE\n";
-		print FOUT "$command PFPATH=\$PFPATH:$CWAKE/pf\n";
+		#print FOUT "$command PFPATH=\$PFPATH:$CWAKE/pf\n";
+    print FOUT "$command PFPATH=\$ANTELOPE/data/pf:$CWAKE/pf:./pf:.\n";  
 		print FOUT "$command PATH=$CWAKE/bin:\$PATH\n";
 		print FOUT "$command CWAKE=$CWAKE\n";
 		print FOUT "$command DBMASTERPATH=$DBMASTERPATH\n";
