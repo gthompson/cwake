@@ -1,0 +1,68 @@
+THESE NOTES NEED TO BE UPDATED AFTER TESTING AS CHANGES TO ANTELOPE & CONTRIB HAVE BROKEN THINGS HERE
+      
+NOTE: Project documents moved to /data/projects/cwake_documents on 2012/07/19 (1-2 years after end of project)
+
+1. Demonstration databases
+
+A demonstration database is provided as tar archive files and included in the demo directory of the download. This can be copied to any directory 
+of your choice and extracted, for example:
+
+      cd $CWAKE
+      cp demo/demo_avort.tar ~/work
+      cd work
+      tar -xvf demo_avort.tar
+
+The demonstration database demo_avort is a single day (2011/02/20) from the AVO real-time system database. The events were detected, and prelimary
+hypocenters and magnitudes assigned using the Antelope programs orbdetect, orbassoc and orbevproc. The first event was located on the Cook Inlet 
+regional grid. For this particular event, P pick arrivals are hidden behind S pick arrivals, so the incorrect S picks must be removed manually.
+
+2. Testing your installation of cwake 
+
+Extract the demonstration database demo_avort as described above. The hypocenters included in this file come from a nested set of regions defined
+in orbassoc, using a grid search and a single velocity model. We will now relocate them using genloc. The simplest way to do this is in batch mode
+with relocate:
+
+	    relocate demo_avort avort_relocated -useold
+
+The -useold directive here tells relocate (actually genloc) to use the original hypocenters as input for the first iteration.
+
+The relocated events do not (yet) have magnitudes. The magnitudes for the original set of hypocenters were computed using orbevproc, which gives
+the same answers as dbevproc (it is the same code). First, copy the descriptor from above:
+
+	    cp demo_avort avort_relocated
+
+We will now compute magnitudes for the relocated events:
+
+	    dbevproc -p dbevproc_avo avort_relocated avort_relocated
+
+Here we are sending the magnitudes back into the input database. This will only work if the wfdisc table exists on your system and the dir/dfile
+fields point to waveform data files. (Note that computing each magnitude with dbevproc takes several tens of seconds – don't think it has crashed
+just because it is slow).
+
+Finally, any of these databases can be examined manually with dbloc2, e.g.:
+
+	    dbloc2 -p dbloc2_avo -r avort_relocated
+
+This way, arrivals assigned incorrectly by orbassoc can be fixed manually, and then the event relocated, and a magnitude determined. It is not 
+possible to manually select which station magnitudes to include in a network magnitude, though such functionality is planned in a future version
+of CWAKE.
+
+3. Validation (THIS STEP HAS NOT BEEN DONE YET DUE TO PROBLEMS WITH STATION ELEVATIONS BENEATH MODEL CEILING)
+Hypocenters and Richter magnitudes in the AVO catalog have been determined (since 1989) by an AVO analyst using Hypoellipse. To test CWAKE, six 
+datasets containing only well-constrained hypocenters with Richter magnitudes of at least 0.5  were extracted from the AVO “catalog” for Spurr 
+(62 events), Redoubt (39), Augustine (22), Katmai-Trident (181), Martin-Mageik (457) and Akutan (15). These can be found in the demo/validation/ 
+directory.
+
+4.1 Hypocenters
+
+All events in these databases will be relocated using relocate, for example:
+
+      relocate demo/catalog/Akutan demo/relocate/Akutan -pf relocate_ak -useold
+
+Systematic differences between the catalog and relocated hypocenters will be shown.
+
+4.2 Magnitudes
+
+Richter magnitudes will also be computed for the catalog hypocenters with dbevproc and compared with the original catalog magnitudes.
+
+
