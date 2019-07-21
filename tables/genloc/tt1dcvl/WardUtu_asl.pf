@@ -1,0 +1,158 @@
+# Velocity model of Ward et al. 2014
+# Taken from the Colorado Plateau example model from page 17 of the "Antelope New User's Guide" by Jeff Lockridge, modified by Kathryn Dorn, then again modified by Heather McFarlin, July 23, 2018
+
+phases &Arr{
+P  &Arr{
+        travel_time_calculator ttlvz
+        velocity_model &Tbl{
+        3.85	-4.0
+	4.2	-3.0
+	4.55	-2.0
+	5.16	-1.0
+	4.137   0.0
+        4.4007  1.0
+        4.7803  2.0
+        5.1765  3.0
+	5.4290	4.0
+	5.5594	5.0
+	5.6470	6.0
+	5.7027	7.0
+	5.6937	8.0
+	5.6109	9.0
+	5.4994	10.0
+	5.3770	11.0
+	5.2153	12.0
+	5.0148	13.0
+	4.8124	14.0
+	4.6648	15.0
+	4.5914	16.0
+	4.5679	17.0
+	4.5783	18.0
+	4.6137	19.0
+	4.6662	20.0
+	4.7354	21.0
+	4.8294	22.0
+	4.9479	23.0
+	5.0713	24.0
+	5.1742	25.0
+	5.2707	26.0
+	5.3680	27.0
+	5.4571	28.0
+	5.5264	29.0
+	5.5760	30.0
+	5.8140	40.0
+	6.1150	50.0
+	6.2161	60.0
+	6.6843	70.0
+	7.8778	250.0
+        }
+	time_distance_weight_function &Tbl{
+        0.0     1.0
+        1.5     1.0
+        5.0     0.1
+	10.0	0.0        
+	360.0   0.0
+        }
+        ux_distance_weight_function &Tbl{
+        0.0     1.0
+        10.0    1.0
+        90.0    0.7
+	92.0	0.0
+        360.0   0.0
+        }
+        uy_distance_weight_function &Tbl{
+        0.0     1.0
+        10.0    1.0
+	90.0	0.7
+	92.0	0.0
+        360.0   0.0
+        }
+        default_time_uncertainty 0.2
+        default_slowness_uncertainty 0.01
+        dt_bound_factor 0.01
+        du_bound_factor 0.035
+        time_station_corrections &Tbl{
+        }
+        ux_station_corrections &Tbl{
+        }
+        uy_station_corrections &Tbl{
+        }
+}
+# Vs = 0.5774 * Vp
+S  &Arr{
+        travel_time_calculator ttlvz
+        velocity_model &Tbl{
+        2.2	-4.0
+	2.4	-3.0
+	2.6	-2.0
+	2.95	-1.0	
+	2.3640  0.0
+        2.5147  1.0
+        2.7316  2.0
+        2.9580  3.0
+	3.1023	4.0
+	3.1768	5.0
+	3.2269	6.0
+	3.2587	7.0
+	3.2535	8.0
+	3.2063	9.0
+	3.1425	10.0
+	3.0725	11.0
+	2.9802	12.0
+	2.8656	13.0
+	2.7499	14.0
+	2.6656	15.0
+	2.6237	16.0
+	2.6102	17.0
+	2.6161	18.0
+	2.6364	19.0
+	2.6664	20.0
+	2.7060	21.0
+	2.7597	22.0
+	2.8274	23.0
+	2.8979	24.0
+	2.9567	25.0
+	3.0119	26.0
+	3.0674	27.0
+	3.1183	28.0
+	3.1580	29.0
+	3.1863	30.0
+	3.3223	40.0
+	3.4943	50.0
+	3.5521	60.0
+	3.8196	70.0
+	4.5016	250.0
+        }
+	time_distance_weight_function &Tbl{
+        0.0     1.0
+        1.5     1.0
+        5.0     0.1
+	10.0	0.0
+        360.0   0.0
+        }
+        ux_distance_weight_function &Tbl{
+        0.0     1.0
+        10.0    1.0
+        90.0    0.7
+	92.0	0.0
+        360.0   0.0
+        }
+        uy_distance_weight_function &Tbl{
+        0.0     1.0
+        10.0    1.0
+        90.0    0.7
+	92.0	0.0
+        360.0   0.0
+        }
+        default_time_uncertainty 0.5
+        default_slowness_uncertainty 0.005
+        dt_bound_factor 0.01
+        du_bound_factor 0.035
+        time_station_corrections &Tbl{
+        }
+        ux_station_corrections &Tbl{
+        }
+        uy_station_corrections &Tbl{
+        }
+}
+}
